@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cyberpunk AI Chatbot</title>
+
+    <style>
+	body{
+background-color:#f4f4f4;
+font-family:Lato;
+}
+h1{
+ font-family:Roboto;
+ margin-left:400px;
+ margin-top:50px;
+ display:inline-block;
+ padding:10px 20px;
+}
+h1:hover{
+background-color:red;
+}
+p{
+padding:5px380px;
+text-align:center;
+}
+img{
+width:100%;
+border:3px solid black;
+}
+       
+
+        /* Floating Robot Icon */
+        .floating-robot {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+            animation: float 3s infinite ease-in-out;
+            filter: drop-shadow(0 0 15px #d400ff);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px);}
+            50% { transform: translateY(-12px);}
+            100% { transform: translateY(0px);}
+        }
+
+        /* Chatbot Window */
+        .chatbot-container {
+            width: 500px;
+            height: 630px;
+            background: rgba(20, 0, 35, 0.95);
+            border: 2px solid #d400ff;
+            border-radius: 15px;
+            position: fixed;
+            bottom: 120px;
+            right: 40px;
+            display: none;
+            flex-direction: column;
+            box-shadow: 0 0 35px #d400ff;
+        }
+
+        /* Header */
+        .chat-header {
+            background: #2a003d;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid #d400ff;
+        }
+
+        .chat-header h2 {
+            margin: 0;
+            font-size: 22px;
+            color: #ffbaff;
+            letter-spacing: 1px;
+        }
+
+        .close-btn {
+            margin-left: auto;
+            font-size: 30px;
+            cursor: pointer;
+            color: #ff79ff;
+        }
+
+        /* Chat Body */
+        .chat-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            background: #140021;
+        }
+
+        .bot-message, .user-message {
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            max-width: 75%;
+            font-size: 16px;
+        }
+
+        .bot-message {
+            background: rgba(255, 0, 255, 0.15);
+            border-left: 4px solid #ff00ff;
+            box-shadow: 0 0 10px #ff00ff;
+        }
+
+        .user-message {
+            background: #7a00d4;
+            margin-left: auto;
+            box-shadow: 0 0 10px #7a00d4;
+        }
+
+        /* Typing Animation */
+        .typing-dots {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .typing-dots div {
+            width: 8px;
+            height: 8px;
+            margin: 0 3px;
+            background: #ff00ff;
+            border-radius: 50%;
+            animation: blink 1s infinite alternate;
+        }
+
+        @keyframes blink {
+            from { opacity: 0.2; }
+            to { opacity: 1; }
+        }
+
+        /* Input Area */
+        .input-area {
+            border-top: 2px solid #d400ff;
+            display: flex;
+            background: #1a002b;
+        }
+
+        .input-area input {
+            flex: 1;
+            padding: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .input-area button {
+            width: 100px;
+            border: none;
+            background: #d400ff;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        /* Suggestion Buttons */
+        .suggestions {
+            padding: 10px;
+            border-bottom: 2px solid #d400ff;
+            background: #220033;
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+        }
+
+        .suggestions button {
+            background: #65008a;
+            border: 1px solid #d400ff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Dark Mode */
+        .dark-mode {
+            filter: invert(1) hue-rotate(180deg);
+        }
+    </style>
+</head>
+
+<body>
+<h1>DINESH SIR LIVE STUDY</h1>
+<p>MAHARASHTRA'S BEST TEAM FOR BOARDS & MHT-CET (MATH)!!</p>
+<hr>
+<center>
+<a href="https://youtube.com/@dineshsirengineering?si=NZs-0WsFUFK47GOO">DINESH SIR YOUTUBE CHANEL</a>
+</center>
+<hr>
+<img src="dada.jpg" alt="dinesh sir">
+<img src="book.png" alt="dinesh sir">
+<hr>
+<!-- Floating Robot Icon -->
+<img src="https://cdn-icons-png.flaticon.com/512/4712/4712100.png" 
+     class="floating-robot" onclick="openChat()">
+
+<!-- Chatbot Window -->
+<div class="chatbot-container" id="chatbot">
+
+    <div class="chat-header">
+        <h2>CYBER AI - NeoBot</h2>
+        <span class="close-btn" onclick="closeChat()">×</span>
+    </div>
+
+    <!-- Suggestion Buttons -->
+    <div class="suggestions">
+        <button onclick="quickMsg('hello')">Hello</button>
+        <button onclick="quickMsg('time')">Time</button>
+        <button onclick="quickMsg('date')">Date</button>
+        <button onclick="quickMsg('who are you')">Who are you?</button>
+        <button onclick="quickMsg('help')">Help</button>
+    </div>
+
+    <div class="chat-body" id="chat-body">
+        <div class="bot-message">👋 Greetings, human. I am NeoBot — your cyber assistant.</div>
+    </div>
+
+    <div class="input-area">
+        <input type="text" id="userInput" placeholder="Speak or type...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+let synthBeep = new Audio("https://www.fesliyanstudios.com/play-mp3/4382");
+
+function openChat() {
+    document.getElementById("chatbot").style.display = "flex";
+}
+
+function closeChat() {
+    document.getElementById("chatbot").style.display = "none";
+}
+
+function quickMsg(text) {
+    document.getElementById("userInput").value = text;
+    sendMessage();
+}
+
+function sendMessage() {
+    let input = document.getElementById("userInput").value;
+    if (input.trim() === "") return;
+
+    addUserMessage(input);
+    document.getElementById("userInput").value = "";
+
+    showTyping();
+    synthBeep.play();
+
+    setTimeout(() => botReply(input.toLowerCase()), 1000);
+}
+
+function addUserMessage(msg) {
+    let chat = document.getElementById("chat-body");
+    chat.innerHTML += `<div class='user-message'>${msg}</div>`;
+    chat.scrollTop = chat.scrollHeight;
+}
+
+function showTyping() {
+    let chat = document.getElementById("chat-body");
+    chat.innerHTML += `
+        <div class="typing-dots" id="typing">
+            <div></div><div></div><div></div>
+        </div>`;
+    chat.scrollTop = chat.scrollHeight;
+}
+
+function botReply(msg) {
+    document.getElementById("typing")?.remove();
+
+    let reply = smartAI(msg);
+
+    let chat = document.getElementById("chat-body");
+    chat.innerHTML += `<div class='bot-message'>${reply}</div>`;
+    chat.scrollTop = chat.scrollHeight;
+
+    synthBeep.play();
+}
+
+function smartAI(text) {
+
+    if (text.includes("hello") || text.includes("hi"))
+        return "Hello, user. 🚀 What can I help you explore today?";
+
+    if (text.includes("time"))
+        return "⏱ Current system time is: " + new Date().toLocaleTimeString();
+
+    if (text.includes("date"))
+        return "📅 Today's date: " + new Date().toLocaleDateString();
+
+    if (text.includes("who are you"))
+        return "I am NeoBot 🤖 — a cyberpunk AI prototype built in your browser.";
+
+    if (text.includes("help"))
+        return "You can ask: time, date, who are you, weather, search, or anything general.";
+
+    if (text.includes("search"))
+        return "🔍 I cannot fetch live internet data, but I can guide you! Try asking me anything.";
+
+    if (text.includes("dark"))
+        return toggleDarkMode();
+
+    if (text.includes("bye"))
+        return "Farewell, human 🛸 Stay neon.";
+
+    return "I do not fully understand that... yet. But I am evolving. ⚡";
+}
+
+function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
+    return "🌙 Dark mode toggled.";
+}
+
+/* Voice Recognition */
+window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recognizer = new SpeechRecognition();
+recognizer.lang = "en-US";
+
+document.addEventListener("keydown", e => {
+    if (e.key === "V" || e.key === "v") {
+        recognizer.start();
+    }
+});
+
+recognizer.onresult = (event) => {
+    let spoken = event.results[0][0].transcript;
+    document.getElementById("userInput").value = spoken;
+    sendMessage();
+};
+</script>
+
+</body>
+</html>
+
